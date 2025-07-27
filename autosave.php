@@ -76,11 +76,11 @@ message(sprintf('Found %d transactions.', count($groups)));
 
 /** @var array $group */
 foreach ($groups as $group) {
-    // split transactions arent supported.
-    if (1 !== count($group['attributes']['transactions'])) {
-        message(sprintf('Split transactions are not supported, so transaction #%d will be skipped.', $group['id']));
-        continue;
-    }
+    // split transactions arent supported. Update: they are now!
+    // if (1 !== count($group['attributes']['transactions'])) {
+    //     message(sprintf('Split transactions are not supported, so transaction #%d will be skipped.', $group['id']));
+    //     continue;
+    // }
 
     // get the main transaction (we know it's one)
     $transaction = $group['attributes']['transactions'][0];
@@ -114,9 +114,11 @@ foreach ($groups as $group) {
  */
 function createAutoSaveTransaction(array $group, array $arguments): void
 {
-    $first          = $group['attributes']['transactions'][0];
-    $amount         = $first['amount'];
-    $left           = bcmod($amount, (string) $arguments['amount']);
+    $amount = 0;
+    foreach ($group['attributes']['transactions'] as $subtransaction) {
+        $amount += $subtransaction['amount'];
+    }
+    $left           = bcmod((string) $amount, (string) $arguments['amount']);
     $amountToCreate = bcsub((string) (string) $arguments['amount'], $left);
 
     if (0 === bccomp((string) (string) $arguments['amount'], $amountToCreate)) {
