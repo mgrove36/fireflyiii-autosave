@@ -114,6 +114,7 @@ foreach ($groups as $group) {
  */
 function createAutoSaveTransaction(array $group, array $arguments): void
 {
+    $first = $group['attributes']['transactions'][0];
     $amount = 0;
     foreach ($group['attributes']['transactions'] as $subtransaction) {
         $amount += $subtransaction['amount'];
@@ -135,7 +136,7 @@ function createAutoSaveTransaction(array $group, array $arguments): void
                         $first['currency_code'],
                         number_format((float) $amountToCreate, 2, '.', ','),
                         $first['currency_code'],
-                        number_format((float) bcadd($amountToCreate, $amount), 2, '.', ','),
+                        number_format((float) bcadd($amountToCreate, (string) $amount), 2, '.', ','),
                 ));
         return;
     }
@@ -168,7 +169,7 @@ function createAutoSaveTransaction(array $group, array $arguments): void
                     $first['currency_code'],
                     number_format((float) $amountToCreate, 2, '.', ','),
                     $first['currency_code'],
-                    number_format((float) bcadd($amountToCreate, $amount), 2, '.', ','),
+                    number_format((float) bcadd($amountToCreate, (string) $amount), 2, '.', ','),
             ));
 
     $relationSubmission = [
