@@ -21,6 +21,8 @@ This script requires *at least* Firefly III v5.4.0-alpha.1.
 
 ## Introduction
 
+This repository has been forked from [github.com/JC5/autosave](https://github.com/JC5/autosave).
+
 These days many banks offer an auto-save function. With each expense the amount is rounded up to € 5,- and the difference is put into your savings account. This can be an easy way to save money.
 
 For example, a fancy cup of coffee (€ 3.45) generates a second transaction of € 1.55 which is saved on your savings account. The total amount is a multiplier of € 5,-.
