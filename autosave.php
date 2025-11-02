@@ -149,7 +149,7 @@ function createAutoSaveTransaction(array $group, array $arguments): void
                 'source_id'      => $arguments['account'],
                 'destination_id' => $arguments['destination'],
                 'description'    => '(Round-up transaction)',
-                'date'           => substr($first['date'], 0, 10),
+                'date'           => $first['date'],
                 'tags'           => ['Round-up'],
                 'currency_code'  => $first['currency_code'],
                 'amount'         => $amountToCreate,
